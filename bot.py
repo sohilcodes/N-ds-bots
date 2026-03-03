@@ -9,7 +9,7 @@ import segno
 # ================== 🔑 SETTINGS ==================
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-ADMIN_IDS = [6411315434, 7565335801]
+ADMIN_IDS = [6411315434, 8527300066]
 
 bot = telebot.TeleBot(BOT_TOKEN, parse_mode="HTML")
 
@@ -125,8 +125,7 @@ def register_user(user):
             except:
                 pass
 
-# ================== 🚀 START (FIXED) ==================
-
+# ================== 🚀 START (FIXED) =============
 @bot.message_handler(commands=['start'])
 def start(m):
     cfg = load_config()
@@ -138,15 +137,29 @@ def start(m):
     kb.add(InlineKeyboardButton("✅ How to Get Premium", url=cfg["howto_link"]))
 
     try:
-        sent_msg = bot.copy_message(
+        # Get original message from channel
+        msg = bot.forward_message(
+            m.chat.id,
+            cfg["start_channel"],
+            cfg["start_post_id"]
+        )
+
+        # Delete forwarded message
+        bot.delete_message(m.chat.id, msg.message_id)
+
+        # Send photo again using file_id + custom caption
+        original = bot.copy_message(
             chat_id=m.chat.id,
             from_chat_id=cfg["start_channel"],
             message_id=cfg["start_post_id"]
         )
 
-        bot.edit_message_reply_markup(
+        # Now edit caption properly
+        bot.edit_message_caption(
             chat_id=m.chat.id,
-            message_id=sent_msg.message_id,
+            message_id=original.message_id,
+            caption=cfg["start_caption"],
+            parse_mode="HTML",
             reply_markup=kb
         )
 
