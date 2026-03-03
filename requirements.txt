@@ -1,2 +1,3 @@
 pyTelegramBotAPI==4.15.4
+flask
 segno==1.6.1
