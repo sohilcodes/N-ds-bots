@@ -134,7 +134,7 @@ def start(m):
     kb = InlineKeyboardMarkup(row_width=1)
     kb.add(InlineKeyboardButton("💎 Get Premium", callback_data="buy"))
     kb.add(InlineKeyboardButton("🎥 Premium Demo", url=cfg["demo_link"]))
-    kb.add(InlineKeyboardButton("✅ How to Get Premium", url=cfg["howto_link"]))
+    kb.add(InlineKeyboardButton("✅ Proofs", url=cfg["howto_link"]))
 
     try:
         # Get original message from channel
