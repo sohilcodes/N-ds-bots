@@ -1,4 +1,4 @@
-ns.py — FINAL ULTIMATE FUNNEL BOT (ALL ADMIN FEATURES + ZERO ERRORS + STABLE)
+# ns.py - FINAL ULTIMATE FUNNEL BOT (ALL ADMIN FEATURES + ZERO ERRORS + STABLE)
 
 import telebot
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
@@ -6,7 +6,7 @@ import json
 import os
 import segno
 
-================== 🔑 SETTINGS ==================
+#================== 🔑 SETTINGS ==================
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 ADMIN_IDS = [6411315434, 7565335801]  # Add multiple admins if needed
@@ -18,7 +18,7 @@ CONFIG_FILE = "config.json"
 PENDING_FILE = "pending.json"
 ADMIN_STATE = {}
 
-================== ⚙️ DEFAULT CONFIG ==================
+#================== ⚙️ DEFAULT CONFIG ==================
 
 DEFAULT_CONFIG = {
 "start_channel": "@yourchannel",
@@ -41,7 +41,7 @@ DEFAULT_CONFIG = {
 "price_offer": 59
 }
 
-================== 🛠 FILE SAFETY (NO CRASH EVER) ==================
+#================== 🛠 FILE SAFETY (NO CRASH EVER) ==================
 
 def ensure_files():
 if not os.path.exists(USERS_FILE):
@@ -62,7 +62,7 @@ json.dump(DEFAULT_CONFIG, open(CONFIG_FILE, "w"), indent=4)
 
 ensure_files()
 
-================== 📥 LOAD SAFE ==================
+#================== 📥 LOAD SAFE ==================
 
 def load_users():
 try:
@@ -104,7 +104,7 @@ return cfg
 def save_config(cfg):
 json.dump(cfg, open(CONFIG_FILE, "w"), indent=4)
 
-================== 👤 USER REGISTER + ADMIN NOTIFY ==================
+#================== 👤 USER REGISTER + ADMIN NOTIFY ==================
 
 def register_user(user):
 users = load_users()
@@ -154,7 +154,7 @@ def start(m):
     except:
         bot.send_message(m.chat.id, cfg["start_caption"], reply_markup=kb)
 
-================== 💳 QR GENERATOR ==================
+#================== 💳 QR GENERATOR ==================
 
 def make_qr(upi, amt, uid):
 link = f"upi://pay?pa={upi}&pn=VIP&am={amt}&cu=INR"
@@ -162,7 +162,7 @@ file = f"qr_{uid}.png"
 segno.make(link).save(file, scale=6)
 return file
 
-================== 💎 BUY PANEL ==================
+#================== 💎 BUY PANEL ==================
 
 @bot.callback_query_handler(func=lambda c: c.data == "buy")
 def buy(c):
@@ -188,7 +188,7 @@ f"✅ <b>UPI ID:</b> <code>{cfg['upi_id']}</code>"
 reply_markup=kb
 )
 
-================== 🎯 SECRET OFFER ==================
+#================== 🎯 SECRET OFFER ==================
 
 @bot.callback_query_handler(func=lambda c: c.data == "offer")
 def offer(c):
@@ -220,7 +220,7 @@ bot.send_message(c.message.chat.id, "Offer rejected. Click /start again.")
 def proofs(c):
 bot.answer_callback_query(c.id, "1000+ Successful Payments ✔️", show_alert=True)
 
-================== 📸 SCREENSHOT ==================
+#================== 📸 SCREENSHOT ==================
 
 @bot.callback_query_handler(func=lambda c: c.data == "ss")
 def ask_ss(c):
@@ -263,7 +263,7 @@ bot.send_message(int(uid), "Payment Rejected.")
 del p[uid]
 save_pending(p)
 
-================== 👑 FULL ADMIN PANEL (ALL REQUESTED FEATURES) ==================
+#================== 👑 FULL ADMIN PANEL (ALL REQUESTED FEATURES) ==================
 
 @bot.message_handler(commands=['admin'])
 def admin(m):
