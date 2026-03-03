@@ -5,6 +5,8 @@ from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 import json
 import os
 import segno
+from flask import Flask
+import threading
 
 # ================== 🔑 SETTINGS ==================
 
@@ -12,6 +14,18 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 ADMIN_IDS = [6411315434, 8527300066]
 
 bot = telebot.TeleBot(BOT_TOKEN, parse_mode="HTML")
+# ================== 🌐 WEB SERVER (FOR RENDER WEB SERVICE) ==================
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Bot is running ✅"
+
+def run_web():
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
+
+threading.Thread(target=run_web).start()
 
 USERS_FILE = "users.json"
 CONFIG_FILE = "config.json"
